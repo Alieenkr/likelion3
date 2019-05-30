@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+    
+<!-- {% load staticfiles %} -->
+
+{% block content %}
+<div class="read">
+  <div class="item-wrapper">
+      <div class="item">
+          <div class="home_image">
+          {% if blog_post.blog_image.url != '' %}
+              <img src="{{ blog_post.blog_image.url }}" alt="이미지 파일을 불러올 수 없습니다." width="300" height="300">
+          {% endif %}
+          </div>
+          <br>
+          <div class="home_title"><h6>{{ blog_post.title }}</h6></div>
+          <div class="home_body"><h6>{{ blog_post.body }}</h6></div>
+          <br>
+          <div class="new-submit">
+              <button type="submit" class="btn btn-primary  btn-sm btn-block"><a href="{% url 'renew' blog_post.id %}">글 수정하기</a></button>
+          </div>
+          <form action="{% url 'delete' blog_post.id %}" id="post_delete" method="POST">
+              {% csrf_token%}
+              <div class="new-submit">
+                  <button type="submit" class="btn btn-secondary btn-sm btn-block">글 삭제하기</button>
+              </div>
+          </form>
+      </div>
+    </div>
+    <div class="item-border item-wrapper">
+      <div class="comment-item">
+          {% for comment in blog_post.comment_set.all %}
+          <div class="comments">
+            <div class="username"><span>{{ comment.username }}</span></div>
+            <div class="comment-body"><p>{{ comment.body }}</p></div>
+            <div class="comment-date"><span>{{ comment.pub_date }}</span></div>
+          </div>
+          {% endfor %}
+          <div class="comment">
+            <form action="{% url 'comment' blog_post.id %}" method="POST">
+              {% csrf_token %}
+              <table class="comment-table">
+                  <tr>
+                    <td>
+                      <input class="new-title-input" type="text" name="comment_username" placeholder="닉네임">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <textarea class="comment-body-input" name="comment_body" cols="30" rows="10" placeholder="댓글을 입력해주세요!"></textarea>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                        <input type="submit" value="댓글 작성">
+                    </td>
+                  </tr>
+              </table>   
+            </form>
+          </div>
+      </div>
+    </div>
+</div>
+
+{% endblock %}

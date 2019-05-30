@@ -1,0 +1,27 @@
+    {% extends 'base.html' %}
+
+    {% block content %}
+
+    <div class="new">
+        <form action="{% url 'create' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="new-title-div">
+                <h4 class="new-title">글 제목</h4>
+                <input class="new-title-input" type="text" name="title" placeholder="@이름">
+            </div>
+            <div class="new-body-div">
+                <h4 class="new-body">글 내용</h4>
+                <textarea class="new-body-input" name="body" cols="30" rows="10"></textarea>
+                <!-- <h4 class="m-4">이미지 url</h4> -->
+                <!-- <input class="form-control" type="text" name="image_url"> -->
+            </div>
+            <div class="input-container">
+                <input type="file" name="blog_image">
+            </div>
+            <div class="new-submit">
+                <button type="submit" class="btn btn-secondary btn-sm btn-block">글쓰기</button>
+            </div>
+        </form>
+    </div>
+    
+    {% endblock %}

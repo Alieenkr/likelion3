@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="home">
+    {% for blog_post in blog_post %}
+    <a href="{% url 'read' blog_post.id %}">
+        <div class="item">
+            <div class="home_image">
+            {% if blog_post.blog_image.url != '' %}
+                <img src="{{ blog_post.blog_image.url }}" alt="이미지 파일을 불러올 수 없습니다." width="320px" height="320px">
+            {% endif %}
+            </div>
+            <br>
+            <div class="home_title"><h5>{{ blog_post.title }}</h5></div>
+            <div class="home_body"><h6>{{ blog_post.body }}</h6></div>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}
